@@ -11,7 +11,7 @@ function Navbar() {
       <ul className="flex space-x-6">
         <li>
           <Link to="/about" className="hover:text-gray-300">
-            About us
+            About Us
           </Link>
         </li>
         <li>
