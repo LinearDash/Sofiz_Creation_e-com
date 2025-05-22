@@ -10,13 +10,13 @@ function Navbar() {
 
       <ul className="flex space-x-6">
         <li>
-          <Link to="/about" className="hover:text-gray-300">
-            About Us
+          <Link to="/product" className="hover:text-gray-300">
+            Product
           </Link>
         </li>
         <li>
-          <Link to="/product" className="hover:text-gray-300">
-            Product
+          <Link to="/about" className="hover:text-gray-300">
+            About Us
           </Link>
         </li>
       </ul>
