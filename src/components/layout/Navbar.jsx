@@ -1,21 +1,23 @@
 import React from "react";
+import { Link } from "react-router";
 
 function Navbar() {
   return (
     <nav className="flex justify-between items-center bg-neutral-900 text-white px-6 py-4 shadow-md">
-      <a href="/" className="text-2xl font-bold hover:text-gray-300">
-        Page Name
-      </a>
+      <Link to="/" className="text-2xl font-bold hover:text-gray-300">
+        Sofiz Creation
+      </Link>
+
       <ul className="flex space-x-6">
         <li>
-          <a href="/social" className="hover:text-gray-300">
-            Social
-          </a>
+          <Link to="/about" className="hover:text-gray-300">
+            About us
+          </Link>
         </li>
         <li>
-          <a href="/product" className="hover:text-gray-300">
+          <Link to="/product" className="hover:text-gray-300">
             Product
-          </a>
+          </Link>
         </li>
       </ul>
     </nav>
