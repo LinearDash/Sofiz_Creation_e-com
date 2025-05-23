@@ -10,6 +10,8 @@ import AboutPage from "./pages/aboutPage.jsx";
 import ProductPage from "./pages/ProductPage.jsx";
 import NotFoundPage from "./pages/NotFoundPage.jsx";
 
+import ProductDetailPage from "./components/ProductDetailPage.jsx";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -26,6 +28,12 @@ const router = createBrowserRouter([
       {
         path: "product",
         element: <ProductPage />,
+        children: [
+          {
+            path: ":id",
+            element: <ProductDetailPage />,
+          },
+        ],
       },
       {
         path: "*",

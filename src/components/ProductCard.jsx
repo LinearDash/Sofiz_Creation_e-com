@@ -1,17 +1,26 @@
 import React from "react";
+import { Link } from "react-router";
 
-const ProductCard = ({ name, price, image }) => {
+const ProductCard = ({ name, price, image, id }) => {
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden transition hover:scale-105 hover:shadow-xl">
-      <img src={image} alt={name} className="w-full h-48 object-cover" />
-      <div className="p-4">
-        <h3 className="text-lg font-semibold mb-2">{name}</h3>
-        <p className="text-gray-600 mb-3">{price}</p>
-        <button className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
-          Add to Cart
+    <Link to={`${id}`}>
+      <div className="h-full bg-amber-50 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+        <img
+          src={image}
+          alt={name}
+          className="w-full h-60 object-cover border-b border-gray-200"
+        />
+        <div className="p-4">
+          <h3 className="text-lg font-semibold text-gray-800 truncate">
+            {name}
+          </h3>
+          <p className="text-gray-600 mt-2">{price}</p>
+        </div>
+        <button className="w-30 bg-blue-600 rounded-3xl text-white font-semibold mb-2 ml-2">
+          Add to cart
         </button>
       </div>
-    </div>
+    </Link>
   );
 };
 
