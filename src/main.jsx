@@ -7,10 +7,10 @@ import { RouterProvider } from "react-router/dom";
 import Layout from "./components/layout/layout.jsx";
 import HomePage from "./pages/homePage.jsx";
 import AboutPage from "./pages/aboutPage.jsx";
-import ProductPage from "./pages/ProductPage.jsx";
+import ProductPage from "./pages/Product/ProductPage.jsx";
 import NotFoundPage from "./pages/NotFoundPage.jsx";
 
-import ProductDetailPage from "./components/ProductDetailPage.jsx";
+import ProductDetailPage from "./pages/Product/ProductDetailPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -28,12 +28,10 @@ const router = createBrowserRouter([
       {
         path: "product",
         element: <ProductPage />,
-        children: [
-          {
-            path: ":id",
-            element: <ProductDetailPage />,
-          },
-        ],
+      },
+      {
+        path: "product/:id",
+        element: <ProductDetailPage />,
       },
       {
         path: "*",

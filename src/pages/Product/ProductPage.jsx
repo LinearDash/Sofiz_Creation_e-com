@@ -1,6 +1,7 @@
 import React from "react";
-import { useParams } from "react-router";
+import ProductCard from "../../components/ProductCard";
 
+// Dummy product data
 const products = [
   {
     id: 1,
@@ -39,14 +40,27 @@ const products = [
     image: "https://via.placeholder.com/300x200?text=Drone+Pro",
   },
 ];
-const ProductDetailPage = () => {
-  const { id } = useParams();
-  console.log(id);
-  const product = products.find((item) => item.id === id);
-  if (!product) {
-    return <div className="p-8 text-center">Product not found.</div>;
-  }
-  return <div>hello this is product</div>;
+// Product Page
+const ProductPage = () => {
+  return (
+    <div className="py-12 px-4 bg-gray-100 min-h-screen">
+      <h1 className="text-3xl font-bold text-center mb-10">Our Products</h1>
+      <div className="max-w-7xl mx-auto grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {products.map((product) => {
+          // console.log(`The id of ${product.name} is ${product.id}`);
+          return (
+            <ProductCard
+              id={product.id}
+              key={product.id}
+              name={product.name}
+              price={product.price}
+              image={product.image}
+            />
+          );
+        })}
+      </div>
+    </div>
+  );
 };
 
-export default ProductDetailPage;
+export default ProductPage;
