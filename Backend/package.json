@@ -1,0 +1,16 @@
+{
+  "name": "ecombackend",
+  "version": "1.0.0",
+  "description": "this is a backend for a ecom project ",
+  "main": "index.js",
+  "scripts": {
+    "test": "node",
+    "start": "node index.js"
+  },
+  "author": "Sandesh Adhikari",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0"
+  }
+}
