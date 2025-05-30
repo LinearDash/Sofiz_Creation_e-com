@@ -29,8 +29,7 @@ const userSchema = new mongoose.Schema({
   mobileNum:{
     type:Number,
     default: null,
-  }
-  
+  },  
 
 },{timestamps:true})
 
