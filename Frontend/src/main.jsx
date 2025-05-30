@@ -11,6 +11,8 @@ import ProductPage from "./pages/Product/ProductPage.jsx";
 import NotFoundPage from "./pages/NotFoundPage.jsx";
 
 import ProductDetailPage from "./pages/Product/ProductDetailPage.jsx";
+import Dashboard from "./pages/Dashboard/Dashboard.jsx";
+import DashLogin from "./pages/Dashboard/DashLogin.jsx";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +35,15 @@ const router = createBrowserRouter([
         path: "product/:id",
         element: <ProductDetailPage />,
       },
+      {
+        path: "dashboard",
+        element: <Dashboard />,
+      },
+      {
+        path: "dashlogin",
+        element: <DashLogin />,
+      },
+
       {
         path: "*",
         element: <NotFoundPage />,
