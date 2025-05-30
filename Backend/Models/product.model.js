@@ -33,6 +33,11 @@ import mongoose, { Types } from "mongoose";
     itemImg3:{
       type:String,
       default:""
+    },
+    category:{
+      type: mongoose.Schema.Types.ObjectId,
+      ref:"Category",
+      require:true
     }
   }, {timestamps: true});
 
