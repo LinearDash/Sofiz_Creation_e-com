@@ -7,8 +7,10 @@ const AboutPage = () => {
       <section className="bg-gradient-to-br from-indigo-600 to-blue-600 text-white py-20 px-4 text-center">
         <h1 className="text-4xl md:text-5xl font-bold">About Us</h1>
         <p className="mt-4 text-lg max-w-2xl mx-auto">
-          We’re on a mission to make technology accessible, efficient, and
-          meaningful for everyone.
+          We believe that every product has a story—and that story begins with
+          human hands. Our platform is dedicated to showcasing beautifully
+          handcrafted items made with love, care, and a commitment to
+          authenticity.
         </p>
       </section>
 
@@ -16,34 +18,40 @@ const AboutPage = () => {
       <section className="py-16 px-4 max-w-5xl mx-auto">
         <h2 className="text-3xl font-bold mb-6 text-center">Our Story</h2>
         <p className="text-lg text-gray-700 leading-relaxed mb-8">
-          Founded in [Year], our company was born out of a simple idea: to solve
-          real problems with elegant technology. Since day one, we've focused on
-          creating tools that empower individuals and businesses alike.
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo ipsam id
+          aliquam similique asperiores possimus ducimus eaque optio ullam
+          eligendi?
         </p>
         <p className="text-lg text-gray-700 leading-relaxed">
           Our team is driven by passion, innovation, and the belief that great
-          software should be intuitive, inclusive, and scalable.
+          software should be intuitive, inclusive, and scalable. Lorem ipsum,
+          dolor sit amet consectetur adipisicing elit. Voluptas, iusto labore
+          nesciunt ipsa quaerat culpa aperiam ullam itaque dolor excepturi,
+          optio quasi odit et voluptate dolorum eius. Rerum veritatis, nulla
+          recusandae iusto accusantium illo deserunt obcaecati totam, suscipit a
+          ducimus quisquam architecto nemo voluptas autem dolore pariatur quod
+          aspernatur magnam. Lorem ipsum dolor sit amet consectetur adipisicing
+          elit. Consequuntur facere maxime hic? Porro quibusdam, corrupti
+          deserunt corporis voluptatum dolor nihil esse atque numquam vel
+          obcaecati! Debitis, corrupti. Repellat, neque ipsam!
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias
+          cupiditate illum quisquam quam, error quae expedita consequatur
+          exercitationem iure ex nisi. Esse soluta neque similique recusandae
+          architecto consectetur odit dicta? Lorem ipsum, dolor sit amet
+          consectetur adipisicing elit. Doloribus ea dolor omnis deserunt ut
+          voluptate animi distinctio culpa nemo numquam ipsum, sit consequuntur
+          sunt similique, quia error non blanditiis vel dolores, iure rerum
+          accusantium necessitatibus ipsam eius? Asperiores quod quas
+          voluptatibus possimus omnis alias accusantium sequi iure voluptatem
+          delectus voluptas culpa, eos doloremque provident maxime! Eos,
+          doloribus obcaecati! Ullam, labore?
         </p>
       </section>
 
-      {/* Team */}
-      <section className="bg-gray-100 py-16 px-4">
-        <div className="max-w-6xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-10">Meet the Team</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {[1, 2, 3].map((_, index) => (
-              <div key={index} className="bg-white p-6 rounded-lg shadow-md">
-                <div className="w-24 h-24 mx-auto bg-gray-300 rounded-full mb-4" />
-                <h3 className="text-xl font-semibold">Team Member</h3>
-                <p className="text-gray-500">Role / Title</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* CTA */}
-      <section className="py-20 text-center bg-indigo-600 text-white px-4">
+      <section className="py-20 text-center bg-blue-300 text-white px-4">
         <h2 className="text-3xl font-bold mb-4">Want to learn more?</h2>
         <p className="text-lg mb-6">
           Reach out or follow us on social media for updates and insights.

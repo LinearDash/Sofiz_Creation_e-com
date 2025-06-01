@@ -1,5 +1,5 @@
 import React from "react";
-import BgImage from "../assets/pattern.jpg"; // Replace with hero background or gradient
+// import BgImage from "../assets/pattern.jpg"; // Replace with hero background or gradient
 
 const HomePage = () => {
   return (
@@ -10,8 +10,9 @@ const HomePage = () => {
           Something Special for Someone Special
         </h1>
         <p className="mt-4 text-lg max-w-xl">
-          All-in-one platform to scale your operations and deliver better
-          experiences.
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore ullam
+          quod doloremque harum quos, possimus hic deleniti velit quae similique
+          maiores provident dignissimos?
         </p>
       </section>
 
@@ -23,15 +24,15 @@ const HomePage = () => {
             {[
               {
                 title: "Handmade",
-                desc: "Make smarter decisions with real-time data.",
+                desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda, sit.",
               },
               {
                 title: "Low Cost",
-                desc: "Save hours every week with powerful automation.",
+                desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda, sit.",
               },
               {
                 title: "Made with love",
-                desc: "Keep everyone in sync with built-in tools.",
+                desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda, sit.",
               },
             ].map((feature, index) => (
               <div key={index} className="p-6 bg-white rounded-xl shadow-md">
@@ -48,39 +49,12 @@ const HomePage = () => {
         <div className="max-w-4xl mx-auto text-center px-4">
           <h2 className="text-3xl font-bold mb-6">What Our Clients Say</h2>
           <blockquote className="italic text-lg text-gray-700">
-            "This platform helped us increase efficiency by 40% in just 2
-            months. It's a total game-changer!"
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorum
+            voluptatum velit, accusamus, eveniet natus suscipit tempora, dolorem
+            esse sint facere non odit. Aperiam voluptatum magnam dicta qui
+            architecto similique commodi?
           </blockquote>
-          <p className="mt-4 font-semibold">– Alex Johnson, CEO at TechCore</p>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
-      <section className="py-20 bg-gray-100">
-        <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-8 text-center">
-            Frequently Asked Questions
-          </h2>
-          <div className="space-y-6">
-            <div>
-              <h4 className="font-semibold text-lg">Is there a free trial?</h4>
-              <p className="text-gray-600">
-                Yes! Get 14 days free. No credit card required.
-              </p>
-            </div>
-            <div>
-              <h4 className="font-semibold text-lg">Can I cancel anytime?</h4>
-              <p className="text-gray-600">
-                Absolutely. You're never locked in.
-              </p>
-            </div>
-            <div>
-              <h4 className="font-semibold text-lg">Is support available?</h4>
-              <p className="text-gray-600">
-                24/7 live chat and email support for all plans.
-              </p>
-            </div>
-          </div>
+          <p className="mt-4 font-semibold">– Sandesh.dev</p>
         </div>
       </section>
     </div>

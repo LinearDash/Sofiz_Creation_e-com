@@ -38,7 +38,7 @@ import mongoose, { Types } from "mongoose";
       type: mongoose.Schema.Types.ObjectId,
       ref:"Category",
       require:true
-    }
+    },
   }, {timestamps: true});
 
 export const Product =mongoose.model("Product",productSchema);
