@@ -3,16 +3,20 @@
   "version": "1.0.0",
   "description": "this is a backend for a ecom project ",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "node",
-    "start": "node index.js"
+    "start": "node index.js",
+    "dev":"nodemon index.js"
   },
   "author": "Sandesh Adhikari",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
-    "mongoose": "^8.15.1",
+    "mongoose": "^8.15.1"
+  },
+  "devDependencies": {
     "nodemon": "^3.1.10"
   }
 }

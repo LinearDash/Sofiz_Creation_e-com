@@ -1,10 +1,15 @@
-require('dotenv').config()
-const express = require('express')
+import dotenv from 'dotenv'
+import express from 'express'
+import connectMongoDB from './DB/connectMongoDB.js'
+
+
+dotenv.config();
 const app = express()
 const port = process.env.PORT
 
+connectMongoDB()
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.send('Hello my World!')
 })
 
 app.get('/twitter',(req,res)=>{
@@ -13,4 +18,5 @@ app.get('/twitter',(req,res)=>{
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
+
 })
