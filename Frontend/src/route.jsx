@@ -4,9 +4,13 @@ import HomePage from "./pages/homePage";
 import AboutPage from "./pages/aboutPage";
 import ProductPage from "./pages/Product/ProductPage";
 import ProductDetailPage from "./pages/Product/ProductDetailPage";
-import Dashboard from "./pages/Dashboard/Dashboard";
+
 import DashLogin from "./pages/Dashboard/DashLogin";
 import NotFoundPage from "./pages/NotFoundPage";
+import DashNav from "./components/DashNav";
+import AdminAnalytics from "./pages/Dashboard/DashPages/AdminAnalytics";
+import AdminProduct from "./pages/Dashboard/DashPages/AdminProduct";
+import AdminOrder from "./pages/Dashboard/DashPages/AdminOrder";
 
 const router = createBrowserRouter([
   {
@@ -30,19 +34,36 @@ const router = createBrowserRouter([
         element: <ProductDetailPage />,
       },
       {
-        path: "dashboard",
-        element: <Dashboard />,
-      },
-      {
-        path: "dashlogin",
+        path: "/dashlogin",
         element: <DashLogin />,
       },
-
       {
         path: "*",
         element: <NotFoundPage />,
       },
     ],
+  },
+  {
+    path: "/dashboard",
+    element: <DashNav />,
+    children: [
+      {
+        path: "",
+        element: <AdminAnalytics />,
+      },
+      {
+        path: "product",
+        element: <AdminProduct />,
+      },
+      {
+        path: "order",
+        element: <AdminOrder />,
+      },
+    ],
+  },
+  {
+    path: "*",
+    element: <NotFoundPage />,
   },
 ]);
 
