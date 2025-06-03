@@ -2,6 +2,9 @@ import dotenv from 'dotenv'
 import express from 'express'
 import connectMongoDB from './DB/connectMongoDB.js'
 
+import authRoutes from "./Routes/auth.routes.js"
+import bodyParser from 'body-parser';
+
 
 dotenv.config();
 const app = express()
@@ -20,12 +23,9 @@ connectMongoDB()
 
 })
 
-app.get('/', (req, res) => {
-  res.send('Hello my World!')
-})
+app.use(bodyParser.json({ limit: "10mb" })); // Change "10mb" to the desired size
+app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
+app.use(express.json({ limit: "10mb" }));
 
-app.get('/twitter',(req,res)=>{
-  res.send('@san_De_s.Data test')
-})
-
+app.use("/api/auth",authRoutes)
 
