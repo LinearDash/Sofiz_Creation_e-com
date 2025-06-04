@@ -65,8 +65,23 @@ export const getProductData = async(req,res)=>{
 export const createCategory = async(req,res)=>{
 try {
   const {name}= req.body;
+  console.log(name);
+
+  if (!name || name.trim() === "") {
+    return res.status(400).json({ error: "Category name is required" });
+  }
+  
 
   const existingCategory = await Category.findOne({name:name})
+
+  if(existingCategory){
+    return res.status(400).json({error:"Category already exists"})
+  }
+  const newCategory = new Category({ name });
+
+  await newCategory.save();
+
+  res.status(201).json(newCategory);
   
 } catch (error) {
   console.log("Error in createCategory controller", error.message);
