@@ -1,7 +1,8 @@
 import express from "express";
-import {} from "../Models/user.model"
+import {isAdmin} from "../Controllers/user.controller.js"
  
 const router = express.Router();
 
+router.get("/isAdmin",isAdmin)
 
 export default router;
