@@ -2,8 +2,9 @@ import React from "react";
 
 const AdminProduct = () => {
   return (
-    <div className="bg-amber-200 min-h-screen">
+    <div className=" min-h-screen">
       {/* will use map to make show all product in all catogory */}
+
       <div>
         catogory
         <div>product</div>
