@@ -72,7 +72,14 @@ export const addProduct = async(req,res)=>{
 }
 
 export const removeProduct = async(req,res)=>{
+  try {
+    const product =await Product.findById(req.param.id);
 
+    if(!product) return res.status(404).json({message:"Product not found"});
+
+  } catch (error) {
+    
+  }
 }
 
 export const modifyProduct = async(req,res)=>{
