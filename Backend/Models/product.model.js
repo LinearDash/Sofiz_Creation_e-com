@@ -23,7 +23,8 @@ const productSchema = new mongoose.Schema({
   },
   itemImg1:{
     type:String, 
-    required:true
+    // required:true,
+    default:""
   },
   itemImg2:{
   type:String,

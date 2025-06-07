@@ -24,6 +24,7 @@ export const addProduct = async(req,res)=>{
     if(!searchCategory){
       return res.status(404).json({error:"Catogory not found"})
     }
+
     if(itemImg1){
       const uploadedResponse =await uploadOnCloudinary(itemImg1);
       itemImg1= uploadedResponse.secure_url;
@@ -51,7 +52,12 @@ export const addProduct = async(req,res)=>{
     if(newProduct){
 
     await newProduct.save()
+
+    searchCategory.product.push(newProduct._id);
+    await searchCategory.save()
+
     res.status(201).json(newProduct)
+
 
     }
     else{
