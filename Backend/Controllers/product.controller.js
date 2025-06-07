@@ -1,5 +1,6 @@
 import Product from "../Models/product.model.js"
 import Category from "../Models/category.model.js";
+import { uploadOnCloudinary } from "../Utils/cloudinary.js";
 
 export const addProduct = async(req,res)=>{
   try {
@@ -8,11 +9,13 @@ export const addProduct = async(req,res)=>{
       item_price,
       description,
       isAvailable,
+      categoryName
+    }=req.body
+    let{
       itemImg1,
       itemImg2,
       itemImg3,
-      categoryName
-    }=req.body
+    }=req.body;
 
     //    Finding the catogory in DB
     const searchCategory = await Category.findOne({name:categoryName});
@@ -20,6 +23,18 @@ export const addProduct = async(req,res)=>{
     //    Return error if category is not found
     if(!searchCategory){
       return res.status(404).json({error:"Catogory not found"})
+    }
+    if(itemImg1){
+      const uploadedResponse =await uploadOnCloudinary(itemImg1);
+      itemImg1= uploadedResponse.secure_url;
+    }
+    if(itemImg2){
+      const uploadedResponse =await uploadOnCloudinary(itemImg2);
+      itemImg2 = uploadedResponse.secure_url;
+    }
+    if(itemImg3){
+      const uploadedResponse =await uploadOnCloudinary(itemImg3);
+      itemImg3 = uploadedResponse.secure_url;
     }
 
     const newProduct = new Product({
@@ -36,7 +51,7 @@ export const addProduct = async(req,res)=>{
     if(newProduct){
 
     await newProduct.save()
-    res.status(500).json(newProduct)
+    res.status(201).json(newProduct)
 
     }
     else{
