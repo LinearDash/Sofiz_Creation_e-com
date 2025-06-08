@@ -72,10 +72,25 @@ export const addProduct = async(req,res)=>{
 }
 
 export const removeProduct = async(req,res)=>{
+  console.log(`removeProduct has been reached`);
+  
   try {
-    const product =await Product.findById(req.param.id);
+    const id = req.params;
+    console.log(id)
 
-    if(!product) return res.status(404).json({message:"Product not found"});
+    const product = await Product.findByIdAndDelete(id);
+
+    if(!product){
+      return res.status(404).json({message:"Product Not Found"})
+    }
+
+    await Category.updateOne(
+      {id:product.category},
+      {$pull:{product:id}}
+    )
+
+    res.status(200).json({message:"Product deleted and Category Updated"});
+    
 
   } catch (error) {
     
