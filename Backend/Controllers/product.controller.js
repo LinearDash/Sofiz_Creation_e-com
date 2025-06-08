@@ -89,7 +89,7 @@ export const removeProduct = async(req,res)=>{
       {$pull:{product:id}}
     )
     for(const img of images){
-      if(img) await destroyFromCloudinary(img)
+      if(img) await destroyFromCloudinary(img_)
     }
 
     res.status(200).json({message:"Product deleted and Category Updated"});
