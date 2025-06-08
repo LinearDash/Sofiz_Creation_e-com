@@ -1,6 +1,6 @@
 import Product from "../Models/product.model.js"
 import Category from "../Models/category.model.js";
-import { uploadOnCloudinary } from "../Utils/cloudinary.js";
+import { uploadOnCloudinary,destroyFromCloudinary } from "../Utils/cloudinary.js";
 
 export const addProduct = async(req,res)=>{
   try {
@@ -75,7 +75,7 @@ export const removeProduct = async(req,res)=>{
   console.log(`removeProduct has been reached`);
   
   try {
-    const id = req.params;
+    const id = req.params.id;
     console.log(id)
 
     const product = await Product.findByIdAndDelete(id);
@@ -83,22 +83,42 @@ export const removeProduct = async(req,res)=>{
     if(!product){
       return res.status(404).json({message:"Product Not Found"})
     }
-
+    const images = [product.itemImg1,product.itemImg2,product.itemImg3]
     await Category.updateOne(
-      {id:product.category},
+      {_id:product.category},
       {$pull:{product:id}}
     )
+    for(const img of images){
+      if(img) await destroyFromCloudinary(img)
+    }
 
     res.status(200).json({message:"Product deleted and Category Updated"});
     
 
   } catch (error) {
+    console.log("Error in removeProduct controller", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
     
   }
 }
 
 export const modifyProduct = async(req,res)=>{
+try {
+  const {name,price,description,isAvailable,itemImg1,itemImg2,itemImg3,category}=req.body;
+  const id = req.params.id;
 
+  const product = await Product.findById(id);
+
+  if(!product) return res.status(404).json({message:"Product not found"});
+  
+  if(itemImg1){
+
+  }
+
+} catch (error) {
+  console.log("Error in modifyProduct controller", error.message);
+  res.status(500).json({ error: "Internal Server Error" });
+}
 }
 
 export const getProductData = async(req,res)=>{
