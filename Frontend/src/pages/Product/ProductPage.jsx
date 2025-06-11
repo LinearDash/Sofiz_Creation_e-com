@@ -45,6 +45,7 @@ const ProductPage = () => {
   return (
     <div className="py-12 px-4 bg-gray-100 min-h-screen">
       <h1 className="text-3xl font-bold text-center mb-10">Our Products</h1>
+      {/* Add a map function for catogorys */}
       <div className="max-w-7xl mx-auto grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {products.map((product) => {
           // console.log(`The id of ${product.name} is ${product.id}`);
