@@ -1,6 +1,6 @@
 import express from "express";
 import { addProduct,getProductData,modifyProduct,removeProduct } from "../Controllers/product.controller.js" ;
-import { createCategory, getCategory } from "../Controllers/category.controller.js"
+import { createCategory, getAllCategories, getCategoryData } from "../Controllers/category.controller.js"
 // import{Log}from "../Middleware/consoleLog.js"
 
 const  router = express.Router();
@@ -11,7 +11,8 @@ router.delete("/:id",removeProduct)
 router.get("/getProductData",getProductData)
 
 router.post("/createCategory",createCategory)
-router.get("/getCategory",getCategory);
+router.get("/getCategoryData",getCategoryData);
+router.get("/getAllCategories",getAllCategories)
 
 
 export default router;

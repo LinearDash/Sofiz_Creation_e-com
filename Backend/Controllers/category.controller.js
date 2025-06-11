@@ -1,5 +1,6 @@
 import Product from "../Models/product.model.js"
 import Category from "../Models/category.model.js";
+import { response } from "express";
 
 export const createCategory = async(req,res)=>{
   try {
@@ -32,7 +33,7 @@ export const deleteCategory = async(req,res)=>{
 
 }
 
-export const getCategory = async(req,res)=>{
+export const getCategoryData = async(req,res)=>{
   try {
     const {name} = req.body;
 
@@ -46,5 +47,15 @@ export const getCategory = async(req,res)=>{
   } catch (error) {
     console.log("Error in getCategoryProduct controller", error.message);
     res.status(500).json({ error: "Internal Server Error" });
+  }
+}
+export const getAllCategories = async (req, res)=>{
+  try {
+    const categories = await Category.find({}).populate("product").populate("name");
+
+    res.status(400).json(categories)
+  } catch (error) {
+    console.log(`Error in getAllCategories controller`,error.message);
+    res.status(500).json({error:"Internal Server Error"})
   }
 }

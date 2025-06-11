@@ -3,7 +3,9 @@ import mongoose, { Types } from "mongoose";
 const categorySchema = new mongoose.Schema({
   name:{
     type: String,
-    required: true
+    required: true,
+    unique: true,
+    trim:true
   },
   product:[{
     type: Types.ObjectId,
