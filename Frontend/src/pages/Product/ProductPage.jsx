@@ -2,14 +2,12 @@ import React from "react";
 import ProductCard from "../../components/Product/ProductCard";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
+const queryClient = useQueryClient();
 
-const queryClient = useQueryClient(;)
 const ProductPage = () => {
   const { data } = useQuery({
     queryKey: ["catogory"],
-    queryFn: async () => {
-
-    },
+    queryFn: async () => {},
   });
 
   return (
