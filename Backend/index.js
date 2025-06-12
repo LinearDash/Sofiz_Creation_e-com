@@ -5,6 +5,8 @@ import connectMongoDB from './DB/connectMongoDB.js'
 import authRoutes from "./Routes/auth.routes.js"
 import productRoutes from "./Routes/product.routes.js"
 import bodyParser from 'body-parser';
+import cors from 'cors'
+
 
 
 dotenv.config();
@@ -23,6 +25,7 @@ connectMongoDB()
   
 
 })
+app.use(cors())
 
 app.use(bodyParser.json({ limit: "10mb" })); // Change "10mb" to the desired size
 app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
