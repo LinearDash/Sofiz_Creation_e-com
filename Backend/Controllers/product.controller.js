@@ -168,7 +168,15 @@ try {
 
 export const getProductData = async(req,res)=>{
   try {
+    const id = req.params.id;
     
+    const product = await Product.findById(id)
+
+    if(!product){
+      return res.status(404).json({message:"Product Not Found"})
+    }
+
+    res.status(200).json(product);
     
   } catch (error) {
     console.log("Error in getProductData controller", error.message);

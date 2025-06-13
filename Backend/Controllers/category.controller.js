@@ -51,11 +51,11 @@ export const getCategoryData = async(req,res)=>{
 }
 export const getAllCategories = async (req, res)=>{
   try {
-    const categories = await Category.find({}).populate("product").populate("name");
+    const categories = await Category.find({});
 
-    res.status(400).json(categories)
+    res.status(200).json(categories)
   } catch (error) {
-    console.log(`Error in getAllCategories controller`,error.message);
+    console.log(`Error in getAllCategories controller`,error);
     res.status(500).json({error:"Internal Server Error"})
   }
 }

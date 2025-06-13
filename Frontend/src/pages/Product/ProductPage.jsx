@@ -1,49 +1,72 @@
 import React, { useEffect, useState } from "react";
 import ProductCard from "../../components/Product/ProductCard";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import Category from "../../../../Backend/Models/category.model";
+import { useQuery } from "@tanstack/react-query";
 
 const ProductPage = () => {
-  const { categories, setCategories } = useState([]);
-  const queryClient = useQueryClient();
+  const [categories, setCategories] = useState([]);
+  const [categoryProduct, setCategoryProduct] = useState([]);
 
-  const { data, refetch } = useQuery({
-    queryKey: ["catogory"],
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["categories"],
     queryFn: async () => {
-      const response = await fetch(
-        "http://localhost:3050/api/product/getAllCategories"
+      const res = await fetch(
+        "http://localhost:5000/api/product/getAllCategories",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       );
-      const data = await response.json();
+
+      const data = await res.json();
+
+      // Check for errors after parsing
+      if (!res.ok) {
+        throw new Error(data.error || `HTTP ${res.status}`);
+      }
+
+      console.log("Response status:", res.status);
+      console.log("Data received:", data);
+
       return data;
     },
   });
 
+  const renderProduct = (categoryId) => {};
+
   useEffect(() => {
-    // Prefetch the categories data
-    queryClient.prefetchQuery(["catogory"], async () => {
-      const response = await fetch(
-        "http://localhost:3050/api/product/getAllCategories"
-      );
-      const data = await response.json();
-      return data;
-    });
-    refetch();
-  }, [queryClient, refetch]);
+    if (data && data.length > 0) {
+      // console.log(data[0].product[0]);
+      setCategories(data);
+      setCategoryProduct(data[0].product);
+    }
+    console.log(categoryProduct);
+  }, [data, categoryProduct]);
+
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error: {error.message}</div>;
+
   return (
-    <div className="py-12 px-4 bg-gray-100 min-h-screen">
-      <h1 className="text-3xl font-bold text-center mb-10">Our Products</h1>
-      <div className="max-w-7xl mx-auto grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {data?.map((category) => (
-          <ProductCard
-            id={category.id}
-            key={category.id}
-            name={category.name}
-            price={category.price}
-            image={category.image}
-          />
+    <>
+      <div className="flex justify-center space-x-4">
+        {categories?.map((category) => (
+          <button
+            key={category._id}
+            className="px-4 py-2 bg-blue-500 text-white rounded m-3"
+            onClick={renderProduct}
+          >
+            {category.name}
+          </button>
         ))}
       </div>
-    </div>
+      <div>
+        {/* Product Card Section */}
+        {categoryProduct.map((product) => {
+          return <ProductCard key={product._id} id={product} />;
+        })}
+      </div>
+    </>
   );
 };
 

@@ -8,7 +8,7 @@ const  router = express.Router();
 router.post("/addproduct",addProduct)
 router.post("/modifyProduct/:id",modifyProduct)
 router.delete("/:id",removeProduct)
-router.get("/getProductData",getProductData)
+router.get("/getProductData/:id",getProductData)
 
 router.post("/createCategory",createCategory)
 router.get("/getCategoryData",getCategoryData);
