@@ -1,20 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useCategories } from "../../../hooks/useCategories";
 
 const AdminProduct = () => {
+  // const [categories, setCategories] = useState([]);
+  const { data: Categeories } = useCategories();
+
   return (
     <div className=" min-h-screen">
       {/* will use map to make show all product in all catogory */}
 
       <div>
-        catogory
-        <div>product</div>
-        {/* need a product card */}
-      </div>
-      <div>
-        <p>Add new catogory</p>
-        {/* need a drop down ig */}
-        <p> Add new product</p>
-        {/* need a add product page */}
+        {Categeories?.map((category) => {
+          return (
+            <div key={category._id}>
+              {category.name}
+              <div>{category._id}</div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

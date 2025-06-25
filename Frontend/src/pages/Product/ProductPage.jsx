@@ -1,37 +1,12 @@
 import React, { useEffect, useState } from "react";
 import ProductCard from "../../components/Product/ProductCard";
-import { useQuery } from "@tanstack/react-query";
+import { useCategories } from "../../hooks/useCategories";
 
 const ProductPage = () => {
   const [categories, setCategories] = useState([]);
   const [categoryProduct, setCategoryProduct] = useState([]);
 
-  const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["categories"],
-    queryFn: async () => {
-      const res = await fetch(
-        "http://localhost:5000/api/product/getAllCategories",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      const data = await res.json();
-
-      // Check for errors after parsing
-      if (!res.ok) {
-        throw new Error(data.error || `HTTP ${res.status}`);
-      }
-
-      console.log("Response status:", res.status);
-      console.log("Data received:", data);
-
-      return data;
-    },
-  });
+  const { data, isLoading, isError, error } = useCategories();
 
   const renderProduct = (categoryId) => {};
 
@@ -41,7 +16,6 @@ const ProductPage = () => {
       setCategories(data);
       setCategoryProduct(data[0].product);
     }
-    console.log(categoryProduct);
   }, [data, categoryProduct]);
 
   if (isLoading) return <div>Loading...</div>;
@@ -60,10 +34,14 @@ const ProductPage = () => {
           </button>
         ))}
       </div>
-      <div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-items-center pt-10">
         {/* Product Card Section */}
         {categoryProduct.map((product) => {
-          return <ProductCard key={product._id} id={product} />;
+          return (
+            <div className="w-full md:w-1/2 lg:w-1/3">
+              <ProductCard key={product._id} id={product} />
+            </div>
+          );
         })}
       </div>
     </>

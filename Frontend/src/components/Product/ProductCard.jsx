@@ -1,45 +1,23 @@
-import { useQuery } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
+import { useCategoryProducts } from "../../hooks/useCategoryProducts";
+// import PropTypes from "prop-types";
 
 const ProductCard = ({ id }) => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [image, setImage] = useState("");
 
-  console.log(`Id coming into productcard.jsx: ${id}`);
-
-  const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["product", id], // Include id in queryKey to make it unique per product
-    queryFn: async () => {
-      const res = await fetch(
-        `http://localhost:5000/api/product/getProductData/${id}`,
-        {
-          method: "GET",
-        }
-      );
-
-      if (!res.ok) {
-        throw new Error(`HTTP ${res.status}: ${res.statusText}`);
-      }
-
-      const data = await res.json();
-
-      console.log(`Product data for ${id}:`, data);
-      return data;
-    },
-    enabled: !!id, // Only run query if id exists
-  });
+  const { data, isLoading, isError, error } = useCategoryProducts(id);
 
   useEffect(() => {
     if (data) {
-      setName(data.name || "");
-      setPrice(data.price || "");
-      setImage(data.itemImg1 || "");
+      setName(data?.item_name || "");
+      setPrice(data?.item_price || "");
+      setImage(data?.item_image || "");
     }
   }, [data]);
 
-  // Handle loading and error states
   if (isLoading) {
     return (
       <div className="h-full bg-gray-100 rounded-lg shadow-md overflow-hidden animate-pulse">
@@ -76,7 +54,7 @@ const ProductCard = ({ id }) => {
           alt={name || "Product"}
           className="w-full h-60 object-cover border-b border-gray-200"
           onError={(e) => {
-            e.target.src = "/placeholder-image.jpg"; // Fallback image
+            e.target.src = "/placeholder-image.jpg";
           }}
         />
         <div className="p-4">
@@ -90,8 +68,7 @@ const ProductCard = ({ id }) => {
         <button
           className="w-30 bg-blue-600 rounded-3xl text-white font-semibold mb-2 ml-2 px-4 py-2 hover:bg-blue-700 transition-colors"
           onClick={(e) => {
-            e.preventDefault(); // Prevent Link navigation when clicking the button
-            // Add your cart logic here
+            e.preventDefault();
             console.log(`Adding product ${id} to cart`);
           }}
         >
