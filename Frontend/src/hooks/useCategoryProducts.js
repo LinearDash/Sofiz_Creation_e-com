@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query"; 
 
 export const useCategoryProducts = (id)=>{
+  // console.log(id);
+  
   return useQuery({
       queryKey: ["product", id],
       queryFn: async () => {

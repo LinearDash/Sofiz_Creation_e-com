@@ -34,14 +34,10 @@ const ProductPage = () => {
           </button>
         ))}
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-items-center pt-10">
+      <div className="grid grid-cols-3 justify-items-center pt-10 pb-10">
         {/* Product Card Section */}
         {categoryProduct.map((product) => {
-          return (
-            <div className="w-full md:w-1/2 lg:w-1/3">
-              <ProductCard key={product._id} id={product} />
-            </div>
-          );
+          return <ProductCard key={product._id} id={product} />;
         })}
       </div>
     </>

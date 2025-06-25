@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useCategories } from "../../../hooks/useCategories";
+import ProductCard from "../../../components/Product/ProductCard";
+import CategoryProducts from "../../../components/Product/CategoryProducts";
 
 const AdminProduct = () => {
   // const [categories, setCategories] = useState([]);
@@ -12,10 +14,7 @@ const AdminProduct = () => {
       <div>
         {Categeories?.map((category) => {
           return (
-            <div key={category._id}>
-              {category.name}
-              <div>{category._id}</div>
-            </div>
+            <CategoryProducts key={category._id} categoryData={category} />
           );
         })}
       </div>
