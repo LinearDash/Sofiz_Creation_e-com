@@ -16,7 +16,7 @@ const AddProductForm = ({ categoryName }) => {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <h1 className="text-xl font-bold">Add Product - {categoryName} </h1>
-
+      {/* Product Name Input */}
       <div>
         <label className="block font-semibold">Product Name</label>
         <input
@@ -27,6 +27,9 @@ const AddProductForm = ({ categoryName }) => {
           required
         />
       </div>
+
+      {/* Pordcuct Card Input */}
+
       <div>
         <label className="block font-semibold">Product Price</label>
         <input
@@ -37,6 +40,7 @@ const AddProductForm = ({ categoryName }) => {
           required
         />
       </div>
+      {/* Product Description Input */}
       <div>
         <label className="block font-semibold">Product Description</label>
         <textarea
@@ -46,6 +50,7 @@ const AddProductForm = ({ categoryName }) => {
           required
         ></textarea>
       </div>
+      {/* Product Image Input */}
       <div>
         <label className="block font-semibold">Product Images</label>
         <input

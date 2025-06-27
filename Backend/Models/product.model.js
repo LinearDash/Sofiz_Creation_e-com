@@ -19,7 +19,8 @@ const productSchema = new mongoose.Schema({
   },
   isAvailable:{
     type: Boolean,
-    required: true
+    required: true,
+    default :true
   },
   itemImg1:{
     type:String, 
