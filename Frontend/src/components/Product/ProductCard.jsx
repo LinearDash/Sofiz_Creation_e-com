@@ -48,7 +48,7 @@ const ProductCard = ({ id }) => {
 
   return (
     <Link to={`${id}`}>
-      <div className="h-full w-70 ml-10 bg-orange-500 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+      <div className="h-full w-70 m-10 bg-fuchsia-400 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 ">
         <img
           src={image || "/placeholder-image.jpg"}
           alt={name || "Product"}

@@ -34,7 +34,7 @@ const ProductPage = () => {
           </button>
         ))}
       </div>
-      <div className="grid grid-cols-3 justify-items-center pt-10 pb-10">
+      <div className="grid grid-cols-3 justify-items-center pt-10 pb-10 gap-6 mb-10">
         {/* Product Card Section */}
         {categoryProduct.map((product) => {
           return <ProductCard key={product._id} id={product} />;
