@@ -23,7 +23,7 @@ const ProductPage = () => {
 
   return (
     <>
-      <div className="flex justify-center space-x-4">
+      <div className="flex justify-center space-x-3">
         {categories?.map((category) => (
           <button
             key={category._id}
@@ -34,7 +34,7 @@ const ProductPage = () => {
           </button>
         ))}
       </div>
-      <div className="grid grid-cols-3 justify-items-center pt-10 pb-10 gap-6 mb-10">
+      <div className="grid grid-cols-3 justify-items-center pt-10 pb-10 gap-y-6">
         {/* Product Card Section */}
         {categoryProduct.map((product) => {
           return <ProductCard key={product._id} id={product} />;
