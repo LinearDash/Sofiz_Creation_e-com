@@ -31,7 +31,7 @@ const CategoryProducts = ({ categoryData }) => {
         </button>
       </div>
 
-      <div className="flex flex-row">
+      <div className="overflow-auto flex flex-row gap-x-7 pl-5 pb-2">
         {products.map((product) => {
           return <ProductCard key={product.id} id={product} />;
         })}
