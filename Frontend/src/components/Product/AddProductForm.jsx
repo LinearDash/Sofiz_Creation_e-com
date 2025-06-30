@@ -7,6 +7,7 @@ const AddProductForm = ({ categoryName }) => {
     item_price: "",
     description: "",
     categoryName: categoryName,
+    itemImg1: "",
   });
 
   const handleChange = async (e) => {
@@ -46,6 +47,7 @@ const AddProductForm = ({ categoryName }) => {
         item_name: "",
         item_price: "",
         description: "",
+        itemImg1: "",
       });
     },
     onError: (err) => {
@@ -58,6 +60,7 @@ const AddProductForm = ({ categoryName }) => {
     e.preventDefault();
     addProduct();
   };
+
   useEffect(() => {
     // Trigger a re-render or perform any necessary actions when handleSubmit is called
     // You can add logic here if needed
@@ -101,15 +104,20 @@ const AddProductForm = ({ categoryName }) => {
         ></textarea>
       </div>
       {/* Product Image Input */}
-      {/* <div>
+      <div>
         <label className="block font-semibold">Product Images</label>
         <input
+          name="itemImg1"
           type="file"
           className="w-full border border-gray-300 rounded px-2 py-1"
-          onSubmit={handleSubmit}
+          onChange={(e) => {
+            const file = e.target.files[0];
+            console.log(file);
+            setFormData({ ...formData, itemImg1: file });
+          }}
           required
         />
-      </div> */}
+      </div>
       <button
         type="submit"
         className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
