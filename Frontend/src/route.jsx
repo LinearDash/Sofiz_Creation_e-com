@@ -11,6 +11,7 @@ import DashNav from "./components/DashNav";
 import AdminAnalytics from "./pages/Dashboard/DashPages/AdminAnalytics";
 import AdminProduct from "./pages/Dashboard/DashPages/AdminProduct";
 import AdminOrder from "./pages/Dashboard/DashPages/AdminOrder";
+import ProductEditPage from "./pages/Product/ProductEditPage";
 
 const router = createBrowserRouter([
   {
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
       {
         path: "product",
         element: <AdminProduct />,
+      },
+      {
+        path: "product/:id",
+        element: <ProductEditPage />,
       },
       {
         path: "order",
