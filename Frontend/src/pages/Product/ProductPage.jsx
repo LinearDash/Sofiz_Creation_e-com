@@ -7,19 +7,20 @@ const ProductPage = () => {
   const [categoryProduct, setCategoryProduct] = useState([]);
   const [categoryIndex, setCategoryIndex] = useState(0);
 
-  const { data, isLoading, isError, error } = useCategories();
+  const { data, isLoading, isError, error } = useCategories(); //Using costume hook to fetch catogory data
 
   const handelClick = (categoryName) => {
+    //when the button is clicked it sets the index of the clicked catogry in catogoryIndex
     const index = data.findIndex((item) => item.name === categoryName);
     setCategoryIndex(index);
   };
   useEffect(() => {
     if (data && data.length > 0) {
-      // console.log(data[0].product[0]);
+      //if there exists data setCategories to data and setCatogoryProduct to which catogory is selected
       setCategories(data);
       setCategoryProduct(data[categoryIndex].product);
     }
-  }, [data, categoryIndex]);
+  }, [data, categoryIndex]); //when data or catogoryIndex changes the page re-renders
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error: {error.message}</div>;
@@ -27,19 +28,24 @@ const ProductPage = () => {
   return (
     <>
       <div className="flex justify-center space-x-3">
-        {categories?.map((category) => (
-          <button
-            key={category._id}
-            className="px-4 py-2 bg-blue-500 text-white rounded m-3"
-            onClick={() => handelClick(category.name)}
-          >
-            {category.name}
-          </button>
-        ))}
+        {categories?.map(
+          (
+            category //Maping through the categories to get buttons for all the catogories
+          ) => (
+            <button
+              key={category._id}
+              className="px-4 py-2 bg-blue-500 text-white rounded m-3"
+              onClick={() => handelClick(category.name)}
+            >
+              {category.name}
+            </button>
+          )
+        )}
       </div>
       <div className="grid grid-cols-3 justify-items-center pt-10 pb-10 gap-y-6">
         {/* Product Card Section */}
         {categoryProduct.map((product) => {
+          // mapping through all the product in cuurent category
           return <ProductCard key={product._id} id={product} />;
         })}
       </div>
