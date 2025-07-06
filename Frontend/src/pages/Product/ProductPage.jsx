@@ -5,18 +5,21 @@ import { useCategories } from "../../hooks/useCategories";
 const ProductPage = () => {
   const [categories, setCategories] = useState([]);
   const [categoryProduct, setCategoryProduct] = useState([]);
+  const [categoryIndex, setCategoryIndex] = useState(0);
 
   const { data, isLoading, isError, error } = useCategories();
 
-  const renderProduct = (categoryId) => {};
-
+  const handelClick = (categoryName) => {
+    const index = data.findIndex((item) => item.name === categoryName);
+    setCategoryIndex(index);
+  };
   useEffect(() => {
     if (data && data.length > 0) {
       // console.log(data[0].product[0]);
       setCategories(data);
-      setCategoryProduct(data[0].product);
+      setCategoryProduct(data[categoryIndex].product);
     }
-  }, [data, categoryProduct]);
+  }, [data, categoryIndex]);
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error: {error.message}</div>;
@@ -28,7 +31,7 @@ const ProductPage = () => {
           <button
             key={category._id}
             className="px-4 py-2 bg-blue-500 text-white rounded m-3"
-            onClick={renderProduct}
+            onClick={() => handelClick(category.name)}
           >
             {category.name}
           </button>
