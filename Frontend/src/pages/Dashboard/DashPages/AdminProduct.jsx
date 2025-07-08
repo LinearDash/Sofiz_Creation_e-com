@@ -10,7 +10,6 @@ const AdminProduct = () => {
   return (
     <div className=" min-h-screen">
       {/* will use map to make show all product in all catogory */}
-
       <div>
         {Categeories?.map((category) => {
           return (

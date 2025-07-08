@@ -2,40 +2,30 @@ import Product from "../Models/product.model.js"
 import Category from "../Models/category.model.js";
 import { uploadOnCloudinary,destroyFromCloudinary } from "../Utils/cloudinary.js";
 
-export const addProduct = async(req,res)=>{
+export const addProduct = async (req, res) => {
   try {
-    const{
-      item_name,
-      item_price,
-      description,
-      isAvailable,
-      categoryName
-    }=req.body
-    let{
-      itemImg1,
-      itemImg2,
-      itemImg3,
-    }=req.body;
+    const { item_name, item_price, description, isAvailable, categoryName } = req.body;
 
-    //    Finding the catogory in DB
-    const searchCategory = await Category.findOne({name:categoryName});
-
-    //    Return error if category is not found
-    if(!searchCategory){
-      return res.status(404).json({error:"Catogory not found"})
+    const searchCategory = await Category.findOne({ name: categoryName });
+    if (!searchCategory) {
+      return res.status(404).json({ error: "Category not found" });
     }
 
-    if(itemImg1){
-      const uploadedResponse =await uploadOnCloudinary(itemImg1);
-      itemImg1= uploadedResponse.secure_url;
-    }
-    if(itemImg2){
-      const uploadedResponse =await uploadOnCloudinary(itemImg2);
-      itemImg2 = uploadedResponse.secure_url;
-    }
-    if(itemImg3){
-      const uploadedResponse =await uploadOnCloudinary(itemImg3);
-      itemImg3 = uploadedResponse.secure_url;
+    let itemImg1 = "", itemImg2 = "", itemImg3 = "";
+
+    if (req.files) {
+      if (req.files.itemImg1) {
+        const uploaded = await uploadOnCloudinary(req.files.itemImg1[0].path);
+        itemImg1 = uploaded.secure_url;
+      }
+      if (req.files.itemImg2) {
+        const uploaded = await uploadOnCloudinary(req.files.itemImg2[0].path);
+        itemImg2 = uploaded.secure_url;
+      }
+      if (req.files.itemImg3) {
+        const uploaded = await uploadOnCloudinary(req.files.itemImg3[0].path);
+        itemImg3 = uploaded.secure_url;
+      }
     }
 
     const newProduct = new Product({
@@ -46,30 +36,21 @@ export const addProduct = async(req,res)=>{
       itemImg1,
       itemImg2,
       itemImg3,
-      category:searchCategory._id,
-    })
-    
-    if(newProduct){
+      category: searchCategory._id,
+    });
 
-    await newProduct.save()
+    await newProduct.save();
 
     searchCategory.product.push(newProduct._id);
-    await searchCategory.save()
+    await searchCategory.save();
 
-    res.status(201).json(newProduct)
-
-
-    }
-    else{
-      res.status(400).json({ error: "Invalid product data" });
-    }
-
+    res.status(201).json(newProduct);
   } catch (error) {
-    console.log("Error in addProduct controller", error.message);
+    console.error("Error in addProduct controller", error.message);
     res.status(500).json({ error: "Internal Server Error" });
   }
+};
 
-}
 
 export const removeProduct = async(req,res)=>{
   console.log(`removeProduct has been reached`);

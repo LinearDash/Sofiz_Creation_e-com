@@ -9,12 +9,13 @@ const ProductCard = ({ id }) => {
   const [image, setImage] = useState("");
 
   const { data, isLoading, isError, error } = useCategoryProducts(id);
+  console.log(image);
 
   useEffect(() => {
     if (data) {
       setName(data?.item_name || "");
       setPrice(data?.item_price || "");
-      setImage(data?.item_image || "");
+      setImage(data?.itemImg1 || "");
     }
   }, [data]);
 

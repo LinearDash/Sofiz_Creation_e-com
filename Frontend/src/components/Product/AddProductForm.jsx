@@ -1,74 +1,69 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 
 const AddProductForm = ({ categoryName }) => {
   const [formData, setFormData] = useState({
     item_name: "",
     item_price: "",
     description: "",
-    categoryName: categoryName,
-    itemImg1: "",
+    itemImg1: null, // File object
   });
 
-  const handleChange = async (e) => {
-    e.preventDefault();
-    // this will update the data in formData
-    //e.target.name gives the name of the input filed
-    //e.target.value gives the value in input field
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setFormData((prev) => ({
+      ...prev,
+      itemImg1: file,
+    }));
   };
 
   const { mutate: addProduct } = useMutation({
     mutationFn: async () => {
-      try {
-        const res = await fetch("/api/product/addProduct", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData), //this will make sure the body accepts json.string and the data in formData
-        });
-        const data = await res.json();
+      const data = new FormData();
+      data.append("item_name", formData.item_name);
+      data.append("item_price", formData.item_price);
+      data.append("description", formData.description);
+      data.append("categoryName", categoryName);
+      data.append("itemImg1", formData.itemImg1);
 
-        //if the res.ok returns 404 or any error status it will throw an error
-        if (!res.ok) {
-          throw new Error(data.error || "Something went Wromg!!");
-        }
-        return data;
-      } catch (error) {
-        console.error("An error occurred while adding the product:", error);
-        throw new Error(error);
-      }
+      const res = await axios.post("/api/product/addProduct", data, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      return res.data;
     },
-    //on sucesfully completing the mutationFn this function will will and set the formData to null.
     onSuccess: () => {
       alert("Product added successfully!");
       setFormData({
         item_name: "",
         item_price: "",
         description: "",
-        itemImg1: "",
+        itemImg1: null,
       });
     },
     onError: (err) => {
-      alert(`Error:${err}`);
+      alert(`Error: ${err.response?.data?.error || err.message}`);
     },
   });
 
-  //when the form is submitted it will run the mutate function
   const handleSubmit = (e) => {
     e.preventDefault();
     addProduct();
   };
 
-  useEffect(() => {
-    // Trigger a re-render or perform any necessary actions when handleSubmit is called
-    // You can add logic here if needed
-  }, [formData]);
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <h1 className="text-xl font-bold">Add Product - {categoryName} </h1>
-      {/* Product Name Input */}
+      <h1 className="text-xl font-bold">Add Product - {categoryName}</h1>
+
+      {/* Product Name */}
       <div>
         <label className="block font-semibold">Product Name</label>
         <input
@@ -80,7 +75,8 @@ const AddProductForm = ({ categoryName }) => {
           required
         />
       </div>
-      {/* Product Price Input */}
+
+      {/* Product Price */}
       <div>
         <label className="block font-semibold">Product Price</label>
         <input
@@ -92,7 +88,8 @@ const AddProductForm = ({ categoryName }) => {
           required
         />
       </div>
-      {/* Product Description Input */}
+
+      {/* Product Description */}
       <div>
         <label className="block font-semibold">Product Description</label>
         <textarea
@@ -103,21 +100,20 @@ const AddProductForm = ({ categoryName }) => {
           required
         ></textarea>
       </div>
-      {/* Product Image Input */}
+
+      {/* Product Image */}
       <div>
-        <label className="block font-semibold">Product Images</label>
+        <label className="block font-semibold">Product Image</label>
         <input
-          name="itemImg1"
           type="file"
+          name="itemImg1"
+          accept="image/*"
           className="w-full border border-gray-300 rounded px-2 py-1"
-          onChange={(e) => {
-            const file = e.target.files[0];
-            console.log(file);
-            setFormData({ ...formData, itemImg1: file });
-          }}
+          onChange={handleFileChange}
           required
         />
       </div>
+
       <button
         type="submit"
         className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"

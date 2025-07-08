@@ -6,7 +6,7 @@ import "react-social-icons/instagram";
 
 const ProductEditPage = () => {
   const { id } = useParams();
-  console.log(id);
+  // console.log(id);
 
   const { data, isError, isLoading } = useQuery({
     queryKey: ["Product", id],
