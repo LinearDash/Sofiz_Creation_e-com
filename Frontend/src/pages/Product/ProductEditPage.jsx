@@ -1,12 +1,15 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import React from "react";
 import { useParams } from "react-router";
 import { SocialIcon } from "react-social-icons/component";
 import "react-social-icons/instagram";
+import { FaTrash } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const ProductEditPage = () => {
   const { id } = useParams();
   // console.log(id);
+  const navigate = useNavigate();
 
   const { data, isError, isLoading } = useQuery({
     queryKey: ["Product", id],
@@ -30,8 +33,31 @@ const ProductEditPage = () => {
       }
     },
   });
+  const { mutate: deleteProduct } = useMutation({
+    mutationFn: async () => {
+      try {
+        const res = await fetch(`/api/product/${id}`, {
+          method: "DELETE",
+        });
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.error || "Something went wrong");
+        }
+        return data;
+      } catch (error) {
+        console.error("Error deleting product:", error);
+        throw new Error("Failed to delete product");
+      }
+    },
+  });
 
   console.log(data);
+
+  const handelProductDelete = () => {
+    deleteProduct();
+    navigate("/dashboard/product");
+  };
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -49,9 +75,9 @@ const ProductEditPage = () => {
   }
   return (
     <div className="min-h-screen flex items-center justify-center">
-      <div className="bg-amber-200 h-200 w-screen m-20 p-10 rounded-2xl grid grid-cols-2 gap-4 shadow-2xl shadow-gray-500">
+      <div className="bg-amber-200 h-200 w-screen m-20 p-10 rounded-2xl grid grid-cols-2 gap-4 shadow-2xl shadow-gray-500 relative">
         <img
-          src={data.itemImg1}
+          src={data.itemImg1 || null}
           alt={data.item_name}
           className="w-full h-auto rounded-3xl bg-neutral-500"
         />
@@ -71,6 +97,9 @@ const ProductEditPage = () => {
             <SocialIcon network="threads" />
           </div>
         </div>
+        <button onClick={handelProductDelete}>
+          <FaTrash className="absolute top-5 right-5 text-red-500 cursor-pointer" />
+        </button>
       </div>
     </div>
   );
