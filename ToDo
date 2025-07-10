@@ -1,0 +1,10 @@
+make a protected route for admin user.
+function to add catogory.
+make skeleton for product page
+fix product detail page css
+start with order by making order model , order controller order routes and so on
+add image crop function for adding new product
+make product modify function for front end
+finallize homepage 
+finnalize about page
+
