@@ -9,7 +9,7 @@ export default defineConfig({
     port: 3000,
     proxy: {
       "/api": {
-        target: process.env.BACKEND_BASE_URL,
+        target: process.env.VITE_API_URL,
         // changeOrigin: true
       }
     }
