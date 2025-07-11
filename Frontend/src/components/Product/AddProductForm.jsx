@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
 const AddProductForm = ({ categoryName }) => {
+  const queryClient = useQueryClient();
   const [formData, setFormData] = useState({
     item_name: "",
     item_price: "",
@@ -26,7 +27,7 @@ const AddProductForm = ({ categoryName }) => {
     }));
   };
 
-  const { mutate: addProduct } = useMutation({
+  const { mutate: addProduct, isPending } = useMutation({
     mutationFn: async () => {
       const data = new FormData();
       data.append("item_name", formData.item_name);
@@ -41,6 +42,9 @@ const AddProductForm = ({ categoryName }) => {
       return res.data;
     },
     onSuccess: () => {
+      // Invalidate and refetch categories to show the new product
+      queryClient.invalidateQueries({ queryKey: ["Categories"] });
+      
       alert("Product added successfully!");
       setFormData({
         item_name: "",
@@ -116,9 +120,10 @@ const AddProductForm = ({ categoryName }) => {
 
       <button
         type="submit"
-        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+        disabled={isPending}
+        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:bg-gray-400"
       >
-        Submit
+        {isPending ? "Adding Product..." : "Submit"}
       </button>
     </form>
   );

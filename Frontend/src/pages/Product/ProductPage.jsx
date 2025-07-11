@@ -42,12 +42,12 @@ const ProductPage = () => {
           )
         )}
       </div>
-      <div className="grid grid-cols-3 justify-items-center pt-10 pb-10 gap-y-6">
-        {/* Product Card Section */}
-        {categoryProduct.map((product) => {
-          // mapping through all the product in cuurent category
-          return <ProductCard key={product._id} id={product} />;
-        })}
+      <div className="px-4 md:px-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pt-10 pb-10">
+          {categoryProduct.map((product) => (
+            <ProductCard key={product._id} id={product} />
+          ))}
+        </div>
       </div>
     </>
   );
