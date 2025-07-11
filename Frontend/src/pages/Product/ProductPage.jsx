@@ -28,22 +28,28 @@ const ProductPage = () => {
   return (
     <>
       <div className="flex justify-center space-x-3">
-        {categories?.map(
-          (
-            category //Maping through the categories to get buttons for all the catogories
-          ) => (
+        {categories?.map((category, idx) => {
+          const isActive = idx === categoryIndex;
+          return (
             <button
               key={category._id}
-              className="px-4 py-2 bg-blue-500 text-white rounded m-3"
+              className={`px-6 py-2 m-2 rounded-full font-semibold transition-all duration-200 shadow-sm border-2
+                ${
+                  isActive
+                    ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white border-blue-700 shadow-lg scale-105"
+                    : "bg-white text-blue-700 border-blue-300 hover:bg-blue-50 hover:border-blue-500 hover:text-blue-800"
+                }
+                focus:outline-none focus:ring-2 focus:ring-blue-400`}
               onClick={() => handelClick(category.name)}
             >
               {category.name}
             </button>
-          )
-        )}
+          );
+        })}
+      
       </div>
       <div className="px-4 md:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pt-10 pb-10">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 pt-10 pb-10 min-h-[60vh]">
           {categoryProduct.map((product) => (
             <ProductCard key={product._id} id={product} />
           ))}

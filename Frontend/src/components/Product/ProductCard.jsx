@@ -62,7 +62,7 @@ const ProductCard = ({ id }) => {
   };
 
   return (
-    <div className="group bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg hover:border-gray-200 transition-all duration-300 transform hover:-translate-y-1 h-96 w-64 flex flex-col">
+    <div className="group bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg hover:border-gray-200 transition-all duration-300 transform hover:-translate-y-1 h-96 w-full max-w-xs flex flex-col">
       <Link to={`${id}`} className="block flex-1 flex flex-col">
         {/* Image Container */}
         <div className="relative overflow-hidden h-48">
@@ -74,7 +74,6 @@ const ProductCard = ({ id }) => {
               e.target.src = "/placeholder-image.jpg";
             }}
           />
-          
           {/* Favorite Button */}
           <button
             onClick={handleFavorite}
@@ -83,21 +82,18 @@ const ProductCard = ({ id }) => {
           >
             <MdFavorite className="w-3.5 h-3.5 text-gray-600 hover:text-red-500 transition-colors" />
           </button>
-          
           {/* Price Badge */}
           <div className="absolute bottom-2 left-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full shadow-sm">
             <span className="text-sm font-bold text-gray-800">
-              रू {price || "0"}
+              $ {price || "0"}
             </span>
           </div>
         </div>
-
         {/* Content */}
         <div className="p-3 flex-1 flex flex-col">
           <h3 className="text-sm font-semibold text-gray-800 mb-2 line-clamp-2 flex-1">
             {name || "Unknown Product"}
           </h3>
-          
           {/* Add to Cart Button */}
           <button
             onClick={handleAddToCart}

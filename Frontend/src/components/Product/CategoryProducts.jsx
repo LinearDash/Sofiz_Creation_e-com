@@ -20,16 +20,7 @@ const CategoryProducts = ({ categoryData }) => {
   }
   return (
     <div>
-      <div className="flex justify-between items-center">
-        <h1 className="m-4 font-bold text-2xl">{categoryData.name}</h1>
-
-        <button
-          className="m-4 font-medium text-3xl text-white bg-black w-7 rounded-md"
-          onClick={handelClick}
-        >
-          +
-        </button>
-      </div>
+    
 
       <div className="overflow-auto flex flex-row gap-x-7 pl-5 pb-2">
         {products.map((product) => {
