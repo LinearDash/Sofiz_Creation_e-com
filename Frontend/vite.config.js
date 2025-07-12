@@ -9,9 +9,7 @@ export default defineConfig({
     port: 3000,
     proxy: {
       "/api": {
-        target: process.env.NODE_ENV === 'production'
-          ? "https://sofiz-creation-e-com.onrender.com"
-          : "http://localhost:5000",
+        target: "https://sofiz-creation-e-com.onrender.com",
         changeOrigin: true
       }
     }
