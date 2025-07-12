@@ -14,7 +14,7 @@ const AdminProduct = () => {
 
   const handleAddCategory = async (categoryData) => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/product/createCategory`, {
+      const response = await fetch("/api/product/createCategory", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
