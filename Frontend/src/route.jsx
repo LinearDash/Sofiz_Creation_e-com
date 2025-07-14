@@ -4,6 +4,9 @@ import HomePage from "./pages/homePage";
 import AboutPage from "./pages/aboutPage";
 import ProductPage from "./pages/Product/ProductPage";
 import ProductDetailPage from "./pages/Product/ProductDetailPage";
+import CartPage from "./pages/CartPage";
+import LoginPage from "./pages/LoginPage";
+import SignupPage from "./pages/SignupPage";
 
 import DashLogin from "./pages/Dashboard/DashLogin";
 import NotFoundPage from "./pages/NotFoundPage";
@@ -33,6 +36,18 @@ const router = createBrowserRouter([
       {
         path: "product/:id",
         element: <ProductDetailPage />,
+      },
+      {
+        path: "cart",
+        element: <CartPage />,
+      },
+      {
+        path: "login",
+        element: <LoginPage />,
+      },
+      {
+        path: "signup",
+        element: <SignupPage />,
       },
       {
         path: "/dashlogin",
