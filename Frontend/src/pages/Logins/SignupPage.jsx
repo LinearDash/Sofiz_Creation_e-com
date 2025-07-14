@@ -1,3 +1,4 @@
+import { useGoogleLogin } from '@react-oauth/google';
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -14,6 +15,15 @@ const SignupPage = () => {
   const [loading, setLoading] = useState(false);
   const [signupError, setSignupError] = useState('');
   const navigate = useNavigate();
+
+  const handleGoogleLogin = useGoogleLogin({
+    onSuccess: (codeResponse) => {
+      console.log(codeResponse);
+    },
+    onError: (error) => {
+      console.log(error);
+    }
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -78,7 +88,6 @@ const SignupPage = () => {
     }
 
     setLoading(true);
-
     try {
       const response = await fetch('/api/auth/signup', {
         method: 'POST',
@@ -331,7 +340,8 @@ const SignupPage = () => {
             </div>
 
             <div className="mt-6 grid grid-cols-2 gap-3">
-              <button className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+              <button className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+              onClick={handleGoogleLogin}>
                 <svg className="w-5 h-5" viewBox="0 0 24 24">
                   <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                   <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
