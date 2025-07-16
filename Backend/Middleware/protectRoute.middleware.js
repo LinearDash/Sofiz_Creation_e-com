@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 
 const protectRoute = async (req, res, next) => {
   try {
-    const token = req.cookies?.token;
+    const token = req.cookies?.jwt;
     if (!token) {
       return res.status(401).json({ error: "Unauthorized: No token provided" });
     }
@@ -13,7 +13,7 @@ const protectRoute = async (req, res, next) => {
       return res.status(401).json({ error: "Unauthorized: Invalid token" });
     }
 
-    const user = await User.findById(decoded.id).select("-password");
+    const user = await User.findById(decoded.userID).select("-password");
 
     if (!user) {
       return res.status(401).json({ error: "Unauthorized: User not found" });
