@@ -1,6 +1,6 @@
-import User from '../Models/user.model.js';
-import bcrypt from "bcrypt"
-import { generateTokenAndSetCookie } from "../Utils/generateTokens.js"
+import User from "../Models/user.model.js";
+import bcrypt from "bcrypt";
+import { generateTokenAndSetCookie } from "../Utils/generateTokens.js";
 
 //Getme controller
 export const getMe = async (req, res) => {
@@ -11,7 +11,7 @@ export const getMe = async (req, res) => {
     console.log("Error in getme controller", error.message);
     res.status(500).json({ error: "Internal Server Error" });
   }
-}
+};
 
 //signup controller
 
@@ -28,7 +28,7 @@ export const signup = async (req, res) => {
     }
 
     //      checks if the username is already taken
-    const existingUser = await User.findOne({ username })
+    const existingUser = await User.findOne({ username });
     if (existingUser) {
       return res.status(400).json({ error: "Username is already taken" });
     }
@@ -46,7 +46,7 @@ export const signup = async (req, res) => {
         .json({ error: "Password must be at least 6 characters long" });
     }
 
-    const salt = await bcrypt.genSalt(10)
+    const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
     //    NEW USER CREATED
@@ -55,7 +55,7 @@ export const signup = async (req, res) => {
       username,
       email,
       password: hashedPassword,
-    })
+    });
 
     //      generateCookies for the user
     if (newUser) {
@@ -70,28 +70,27 @@ export const signup = async (req, res) => {
         email: newUser.email,
         profileImg: newUser.profileImg,
         role: newUser.role,
-        mobileNum: newUser.mobileNum
+        mobileNum: newUser.mobileNum,
       });
     } else {
       res.status(400).json({ error: "Invalid user data" });
     }
-
-
   } catch (error) {
     console.log("Error in signup controller", error.message);
     res.status(500).json({ error: "Internal Server Error" });
   }
-}
-
+};
 
 //login controller
 
 export const login = async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { username, email, password } = req.body;
 
     //  Check if user with username existes in db
-    const user = await User.findOne({ username })
+
+    let user = await User.findOne({ $or: [{ username }, { email }] });
+
     //  Check if Password is correct
     const isPassCorrect = await bcrypt.compare(password, user?.password || "");
     //    If either username  or password  to the User is false
@@ -108,15 +107,13 @@ export const login = async (req, res) => {
       email: user.email,
       profileImg: user.profileImg,
       role: user.role,
-      mobileNum: user.mobileNum
-    })
-
+      mobileNum: user.mobileNum,
+    });
   } catch (error) {
     console.log("Error in login controller", error.message);
     res.status(500).json({ error: "Internal Server Error" });
   }
-}
-
+};
 
 //logout controller
 
@@ -129,4 +126,4 @@ export const logout = async (req, res) => {
     console.log("Error in logout controller", error.message);
     return res.status(500).json({ error: "Internal Server Error" });
   }
-}
+};

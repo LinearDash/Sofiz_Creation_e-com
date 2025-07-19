@@ -1,8 +1,16 @@
 import React, { useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router";
-import { MdOutlineLogout, MdMenu, MdClose, MdDashboard, MdInventory, MdShoppingCart } from "react-icons/md";
+import {
+  MdOutlineLogout,
+  MdMenu,
+  MdClose,
+  MdDashboard,
+  MdInventory,
+  MdShoppingCart,
+} from "react-icons/md";
 import { useMutation } from "@tanstack/react-query";
 
+import ProtectedRoutes from "./Common/ProtectedRoutes";
 function DashNav() {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -27,10 +35,10 @@ function DashNav() {
       // Clear any local state or cache
       localStorage.removeItem("user");
       sessionStorage.clear();
-      
+
       // Redirect to home page
       navigate("/");
-      
+
       // Optional: Show success message
       alert("Logged out successfully!");
     },
@@ -49,7 +57,7 @@ function DashNav() {
   };
 
   return (
-    <>
+    <ProtectedRoutes>
       <nav className="bg-gradient-to-r from-gray-900 to-gray-800 shadow-lg sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
@@ -63,22 +71,22 @@ function DashNav() {
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-8">
-              <Link 
-                to="/dashboard" 
+              <Link
+                to="/dashboard"
                 className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 flex items-center space-x-1"
               >
                 <MdDashboard className="w-4 h-4" />
                 <span>Analytics</span>
               </Link>
-              <Link 
-                to="/dashboard/product" 
+              <Link
+                to="/dashboard/product"
                 className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 flex items-center space-x-1"
               >
                 <MdInventory className="w-4 h-4" />
                 <span>Products</span>
               </Link>
-              <Link 
-                to="/dashboard/order" 
+              <Link
+                to="/dashboard/order"
                 className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 flex items-center space-x-1"
               >
                 <MdShoppingCart className="w-4 h-4" />
@@ -95,7 +103,9 @@ function DashNav() {
                 title="Logout"
               >
                 <MdOutlineLogout className="w-4 h-4" />
-                <span>{logoutMutation.isPending ? "Logging out..." : "Logout"}</span>
+                <span>
+                  {logoutMutation.isPending ? "Logging out..." : "Logout"}
+                </span>
               </button>
             </div>
 
@@ -118,24 +128,24 @@ function DashNav() {
           {isMenuOpen && (
             <div className="md:hidden">
               <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-gray-800 border-t border-gray-700">
-                <Link 
-                  to="/dashboard" 
+                <Link
+                  to="/dashboard"
                   className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 flex items-center space-x-2"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   <MdDashboard className="w-4 h-4" />
                   <span>Analytics</span>
                 </Link>
-                <Link 
-                  to="/dashboard/product" 
+                <Link
+                  to="/dashboard/product"
                   className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 flex items-center space-x-2"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   <MdInventory className="w-4 h-4" />
                   <span>Products</span>
                 </Link>
-                <Link 
-                  to="/dashboard/order" 
+                <Link
+                  to="/dashboard/order"
                   className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 flex items-center space-x-2"
                   onClick={() => setIsMenuOpen(false)}
                 >
@@ -152,7 +162,9 @@ function DashNav() {
                     className="w-full bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center justify-center space-x-2 disabled:bg-gray-600"
                   >
                     <MdOutlineLogout className="w-4 h-4" />
-                    <span>{logoutMutation.isPending ? "Logging out..." : "Logout"}</span>
+                    <span>
+                      {logoutMutation.isPending ? "Logging out..." : "Logout"}
+                    </span>
                   </button>
                 </div>
               </div>
@@ -161,7 +173,7 @@ function DashNav() {
         </div>
       </nav>
       <Outlet />
-    </>
+    </ProtectedRoutes>
   );
 }
 
