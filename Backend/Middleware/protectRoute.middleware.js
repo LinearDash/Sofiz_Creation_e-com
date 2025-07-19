@@ -18,7 +18,9 @@ const protectRoute = async (req, res, next) => {
     if (!user) {
       return res.status(401).json({ error: "Unauthorized: User not found" });
     }
-
+    if(user.role !== "admin"){
+      return res.status(403).json({ error: "Forbidden: Access is denied" });
+    }
     req.user = user;
     next();
   } catch (error) {

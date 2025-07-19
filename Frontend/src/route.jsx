@@ -16,28 +16,6 @@ import AdminProduct from "./pages/Dashboard/DashPages/AdminProduct";
 import AdminOrder from "./pages/Dashboard/DashPages/AdminOrder";
 import ProductEditPage from "./pages/Product/ProductEditPage";
 
-const {data: user, isLoading, isError} = useQuery({
-  queryKey: ["user"],
-  queryFn: async () => {
-    try {
-      const res = await fetch("/api/auth/getme", {
-        method: "GET",
-      });
-      if (!res.ok) {
-        throw new Error("Failed to fetch user");
-      }
-      return res.json();
-    } catch (error) {
-      console.log(error);
-      return null;
-    }
-  },
-
-});
-
-
-
-
 const router = createBrowserRouter([
   {
     path: "/",
