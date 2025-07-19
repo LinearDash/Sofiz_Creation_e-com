@@ -18,6 +18,9 @@ const protectRoute = async (req, res, next) => {
     if (!user) {
       return res.status(401).json({ error: "Unauthorized: User not found" });
     }
+    if (user.role !== "admin") {
+      return res.status(401).json({ error: "Unauthorized: You are not admin" });
+    }
 
     req.user = user;
     next();
@@ -25,6 +28,6 @@ const protectRoute = async (req, res, next) => {
     console.log(error);
     return res.status(500).json({ error: "Internal server error" });
   }
-}
+};
 
 export default protectRoute;
