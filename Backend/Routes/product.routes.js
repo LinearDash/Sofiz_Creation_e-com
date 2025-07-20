@@ -8,7 +8,7 @@ import protectRoute from "../Middleware/protectRoute.middleware.js";
 const router = express.Router();
 
 router.post("/addproduct", protectRoute, uploadProductImages, addProduct)
-router.post("/modifyProduct/:id", protectRoute, modifyProduct)
+router.put("/modifyProduct/:id", protectRoute, modifyProduct)
 router.delete("/:id", protectRoute, removeProduct)
 router.get("/getProductData/:id", getProductData)
 
