@@ -88,10 +88,10 @@ export const signup = async (req, res) => {
 
 export const login = async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { email, username, password } = req.body;
 
     //  Check if user with username existes in db
-    const user = await User.findOne({ username })
+    const user = await User.findOne({ $or: [{ username }, { email }] })
     //  Check if Password is correct
     const isPassCorrect = await bcrypt.compare(password, user?.password || "");
     //    If either username  or password  to the User is false

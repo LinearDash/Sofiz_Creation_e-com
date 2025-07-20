@@ -15,6 +15,7 @@ import AdminAnalytics from "./pages/Dashboard/DashPages/AdminAnalytics";
 import AdminProduct from "./pages/Dashboard/DashPages/AdminProduct";
 import AdminOrder from "./pages/Dashboard/DashPages/AdminOrder";
 import ProductEditPage from "./pages/Product/ProductEditPage";
+import ProtectedRoute from "./components/Common/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -61,7 +62,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <DashNav />,
+    element: (
+      <ProtectedRoute>
+        <DashNav />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: "",
