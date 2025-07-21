@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useCategories } from "../../../hooks/useCategories";
-import CategoryProducts from "../../../components/Product/CategoryProducts";
-import AddCategoryForm from "../../../components/Product/AddCategoryForm";
-import AddProductForm from "../../../components/Product/AddProductForm";
-import Modal from "../../../components/Common/Modal";
+import CategoryProducts from "../../../components/product/CategoryProducts";
+import AddCategoryForm from "../../../components/product/AddCategoryForm";
+import AddProductForm from "../../../components/product/AddProductForm";
+import Modal from "../../../components/common/Modal";
 import { MdAdd, MdCategory } from "react-icons/md";
 
 const AdminProduct = () => {

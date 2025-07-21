@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ProductCard from "../../components/Product/ProductCard";
+import ProductCard from "../../components/product/ProductCard";
 import { useCategories } from "../../hooks/useCategories";
 
 const ProductPage = () => {

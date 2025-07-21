@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 // import AddProductButton from "../Common/AddproductButton";
-import Modal from "../Common/Modal";
+import Modal from "../common/Modal";
 import AddProductForm from "./AddProductForm";
 
 const CategoryProducts = ({ categoryData }) => {

@@ -1,21 +1,21 @@
 import { createBrowserRouter } from "react-router-dom";
-import Layout from "./components/layout/layout/";
-import HomePage from "./pages/Home/homePage";
+import Layout from "./components/layout/layout";
+import HomePage from "./pages/home/homePage";
 import AboutPage from "./pages/aboutPage";
-import ProductPage from "./pages/Product/ProductPage";
-import ProductDetailPage from "./pages/Product/ProductDetailPage";
+import ProductPage from "./pages/product/ProductPage";
+import ProductDetailPage from "./pages/product/ProductDetailPage";
 import CartPage from "./pages/CartPage";
-import LoginPage from "./pages/Logins/LoginPage";
-import SignupPage from "./pages/Logins/SignupPage";
+import LoginPage from "./pages/logins/LoginPage";
+import SignupPage from "./pages/logins/SignupPage";
 
-import DashLogin from "./pages/Dashboard/DashLogin";
+import DashLogin from "./pages/dashboard/DashLogin";
 import NotFoundPage from "./pages/NotFoundPage";
 import DashNav from "./components/DashNav";
-import AdminAnalytics from "./pages/Dashboard/DashPages/AdminAnalytics";
-import AdminProduct from "./pages/Dashboard/DashPages/AdminProduct";
-import AdminOrder from "./pages/Dashboard/DashPages/AdminOrder";
-import ProductEditPage from "./pages/Product/ProductEditPage";
-import ProtectedRoute from "./components/Common/ProtectedRoute";
+import AdminAnalytics from "./pages/dashboard/dashPages/AdminAnalytics";
+import AdminProduct from "./pages/dashboard/dashPages/AdminProduct";
+import AdminOrder from "./pages/dashboard/dashPages/AdminOrder";
+import ProductEditPage from "./pages/product/ProductEditPage";
+import ProtectedRoute from "./components/common/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
