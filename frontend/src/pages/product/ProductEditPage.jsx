@@ -59,7 +59,7 @@ const ProductEditPage = () => {
   const { mutate: updateProduct, isPending: isUpdating } = useMutation({
     mutationFn: async (updatedData) => {
       try {
-        const res = await fetch(`/api/product/${id}`, {
+        const res = await fetch(`/api/modifyProduct/${id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -87,14 +87,21 @@ const ProductEditPage = () => {
 
   const handleEdit = () => {
     setEditData({
-      item_name: data.item_name,
-      item_price: data.item_price,
+      name: data.item_name,
+      price: data.item_price,
       description: data.description,
+      isAvailable: data.isAvailable,
+      category: data.category?.name || data.category, // handle both populated and id
+      itemImg1: data.itemImg1,
+      itemImg2: data.itemImg2,
+      itemImg3: data.itemImg3,
     });
     setIsEditing(true);
   };
 
   const handleSave = () => {
+    console.log(editData);
+
     updateProduct(editData);
   };
 
@@ -125,8 +132,8 @@ const ProductEditPage = () => {
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
           <p className="text-red-600 mb-4">Error loading product details</p>
-          <button 
-            onClick={() => window.location.reload()} 
+          <button
+            onClick={() => window.location.reload()}
             className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
           >
             Try Again
@@ -143,14 +150,22 @@ const ProductEditPage = () => {
         <div className="flex justify-between items-center mb-8">
           <nav>
             <ol className="flex items-center space-x-2 text-sm text-gray-600">
-              <li><a href="/dashboard" className="hover:text-blue-600">Dashboard</a></li>
+              <li>
+                <a href="/dashboard" className="hover:text-blue-600">
+                  Dashboard
+                </a>
+              </li>
               <li>/</li>
-              <li><a href="/dashboard/product" className="hover:text-blue-600">Products</a></li>
+              <li>
+                <a href="/dashboard/product" className="hover:text-blue-600">
+                  Products
+                </a>
+              </li>
               <li>/</li>
               <li className="text-gray-900">{data.item_name}</li>
             </ol>
           </nav>
-          
+
           <div className="flex space-x-2">
             {!isEditing ? (
               <button
@@ -179,7 +194,7 @@ const ProductEditPage = () => {
                 </button>
               </>
             )}
-            
+
             <button
               onClick={handleProductDelete}
               disabled={isDeleting}
@@ -206,7 +221,7 @@ const ProductEditPage = () => {
                   }}
                 />
               </div>
-              
+
               {/* Action Buttons */}
               <div className="absolute top-4 right-4 flex flex-col space-y-2">
                 <button
@@ -216,7 +231,12 @@ const ProductEditPage = () => {
                   <MdFavorite className="w-5 h-5 text-gray-600 hover:text-red-500 transition-colors" />
                 </button>
                 <button
-                  onClick={() => navigator.share?.({ title: data.item_name, url: window.location.href })}
+                  onClick={() =>
+                    navigator.share?.({
+                      title: data.item_name,
+                      url: window.location.href,
+                    })
+                  }
                   className="p-3 bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-white transition-colors"
                   title="Share"
                 >
@@ -233,8 +253,10 @@ const ProductEditPage = () => {
                   {isEditing ? (
                     <input
                       type="text"
-                      value={editData.item_name || ""}
-                      onChange={(e) => setEditData({ ...editData, item_name: e.target.value })}
+                      value={editData.name || ""}
+                      onChange={(e) =>
+                        setEditData({ ...editData, name: e.target.value })
+                      }
                       className="text-3xl lg:text-4xl font-bold text-gray-900 mb-2 w-full border-b-2 border-blue-200 focus:border-blue-500 outline-none"
                     />
                   ) : (
@@ -242,31 +264,43 @@ const ProductEditPage = () => {
                       {data.item_name}
                     </h1>
                   )}
-                  
-                                     <div className="flex items-center space-x-2">
-                     {isEditing ? (
-                       <input
-                         type="number"
-                         value={editData.item_price || ""}
-                         onChange={(e) => setEditData({ ...editData, item_price: e.target.value })}
-                         className="text-2xl lg:text-3xl font-bold text-blue-600 w-32 border-b-2 border-blue-200 focus:border-blue-500 outline-none"
-                       />
-                     ) : (
-                       <span className="text-2xl lg:text-3xl font-bold text-blue-600">
-                         रू {data.item_price}
-                       </span>
-                     )}
-                     <span className="text-sm text-gray-500">NRS</span>
-                   </div>
+
+                  <div className="flex items-center space-x-2">
+                    {isEditing ? (
+                      <input
+                        type="number"
+                        value={editData.price || ""}
+                        onChange={(e) =>
+                          setEditData({
+                            ...editData,
+                            price: e.target.value,
+                          })
+                        }
+                        className="text-2xl lg:text-3xl font-bold text-blue-600 w-32 border-b-2 border-blue-200 focus:border-blue-500 outline-none"
+                      />
+                    ) : (
+                      <span className="text-2xl lg:text-3xl font-bold text-blue-600">
+                        रू {data.item_price}
+                      </span>
+                    )}
+                    <span className="text-sm text-gray-500">NRS</span>
+                  </div>
                 </div>
 
                 {/* Description */}
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Description</h3>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                    Description
+                  </h3>
                   {isEditing ? (
                     <textarea
                       value={editData.description || ""}
-                      onChange={(e) => setEditData({ ...editData, description: e.target.value })}
+                      onChange={(e) =>
+                        setEditData({
+                          ...editData,
+                          description: e.target.value,
+                        })
+                      }
                       className="w-full h-32 p-3 border border-gray-300 rounded-lg focus:border-blue-500 outline-none resize-none"
                       placeholder="Enter product description..."
                     />
@@ -287,27 +321,30 @@ const ProductEditPage = () => {
 
                 {/* Contact Section */}
                 <div className="border-t border-gray-200 pt-6">
-                  <h3 className="text-xl font-bold text-gray-900 mb-4">Get in Touch</h3>
+                  <h3 className="text-xl font-bold text-gray-900 mb-4">
+                    Get in Touch
+                  </h3>
                   <p className="text-gray-700 mb-4">
-                    Follow us on social media for more updates and custom orders!
+                    Follow us on social media for more updates and custom
+                    orders!
                   </p>
-                  
+
                   <div className="flex space-x-3">
                     <SocialIcon
                       network="instagram"
                       href="https://www.instagram.com/sofiz_creation/"
                       className="hover:scale-110 transition-transform"
                     />
-                    <SocialIcon 
-                      network="facebook" 
+                    <SocialIcon
+                      network="facebook"
                       className="hover:scale-110 transition-transform"
                     />
-                    <SocialIcon 
-                      network="threads" 
+                    <SocialIcon
+                      network="threads"
                       className="hover:scale-110 transition-transform"
                     />
                   </div>
-                  
+
                   <p className="text-sm text-gray-600 mt-3">
                     @sofiz_creation on Instagram
                   </p>
