@@ -2,6 +2,8 @@ import Product from "../Models/product.model.js"
 import Category from "../Models/category.model.js";
 import { uploadOnCloudinary,destroyFromCloudinary } from "../Utils/cloudinary.js";
 
+//Add Product Controller
+
 export const addProduct = async (req, res) => {
   try {
     const { item_name, item_price, description, isAvailable, categoryName } = req.body;
@@ -52,6 +54,8 @@ export const addProduct = async (req, res) => {
 };
 
 
+// Remove product Controller
+
 export const removeProduct = async(req,res)=>{
   console.log(`removeProduct has been reached`);
   
@@ -83,22 +87,30 @@ export const removeProduct = async(req,res)=>{
   }
 }
 
+// Modify Product Controller
+
 export const modifyProduct = async(req,res)=>{
 try {
   const {name,price,description,isAvailable,category}=req.body;
   const id = req.params.id;
   let {itemImg1,itemImg2,itemImg3}=req.body
 
+  console.log(name);
+  
+
   const product = await Product.findById(id);
 
   if(!product) return res.status(404).json({message:"Product not found"});
 
-  const searchCategory = await Category.findOne({name:category});
+  // console.log(category);
+  
+  // const searchCategory = await Category.findOne({name:category});
 
   //    Return error if category is not found
-  if(!searchCategory){
-    return res.status(404).json({error:"Catogory not found"})
-  }
+
+  // if(!searchCategory){
+  //   return res.status(404).json({error:"Catogory not found"})
+  // }
 
   
   if(itemImg1){
@@ -121,21 +133,21 @@ try {
   product.item_price = price || product.item_price;
   product.description = description || product.description;
   product.isAvailable = isAvailable || product.isAvailable;
-  product.category = searchCategory || product.category;
+  // product.category = searchCategory || product.category;
   product.itemImg1 = itemImg1 || product.itemImg1;
   product.itemImg2 = itemImg2 || product.itemImg2;
   product.itemImg3 = itemImg3 || product.itemImg3;
   
   await product.save();
 
-  if (product.category.toString() !== searchCategory._id.toString()) {
-    await Category.updateOne(
-      { _id: product.category },
-      { $pull: { product: id } }
-    );
-    searchCategory.product.push(product._id);
-    await searchCategory.save();
-  }
+  // if (product.category.toString() !== searchCategory._id.toString()) {
+  //   await Category.updateOne(
+  //     { _id: product.category },
+  //     { $pull: { product: id } }
+  //   );
+  //   searchCategory.product.push(product._id);
+  //   await searchCategory.save();
+  // }
 
   res.status(200).json({message:`Product Updated Sucessfully`,product});
 
@@ -146,6 +158,8 @@ try {
   res.status(500).json({ error: "Internal Server Error" });
 }
 }
+
+//Get Product Data
 
 export const getProductData = async(req,res)=>{
   try {

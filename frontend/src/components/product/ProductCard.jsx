@@ -8,7 +8,7 @@ const ProductCard = ({ id }) => {
   const [price, setPrice] = useState("");
   const [image, setImage] = useState("");
 
-  const { data, isLoading, isError, error } = useCategoryProducts(id);
+  const { data, isLoading, isError } = useCategoryProducts(id);
 
   useEffect(() => {
     if (data) {
