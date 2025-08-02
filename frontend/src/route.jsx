@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "./components/layout/layout";
-import HomePage from "./pages/home/homePage";
+import HomePage from "./pages/home/HomePage";
 import AboutPage from "./pages/aboutPage";
 import ProductPage from "./pages/product/ProductPage";
 import ProductDetailPage from "./pages/product/ProductDetailPage";
@@ -16,6 +16,7 @@ import AdminProduct from "./pages/dashboard/dashPages/AdminProduct";
 import AdminOrder from "./pages/dashboard/dashPages/AdminOrder";
 import ProductEditPage from "./pages/product/ProductEditPage";
 import ProtectedRoute from "./components/common/ProtectedRoute";
+import ProfilePage from "./pages/ProfilePage";
 
 const router = createBrowserRouter([
   {
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
       {
         path: "/dashlogin",
         element: <DashLogin />,
+      },
+      {
+        path: "/profile",
+        element: <ProfilePage />,
       },
       {
         path: "*",

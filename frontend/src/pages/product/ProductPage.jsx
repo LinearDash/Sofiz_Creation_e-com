@@ -22,7 +22,7 @@ const ProductPage = () => {
     }
   }, [data, categoryIndex]); //when data or catogoryIndex changes the page re-renders
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <div className="h-screen flex ">Loading...</div>;
   if (isError) return <div>Error: {error.message}</div>;
 
   return (
@@ -46,7 +46,6 @@ const ProductPage = () => {
             </button>
           );
         })}
-      
       </div>
       <div className="px-4 md:px-8">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 pt-10 pb-10 min-h-[60vh]">

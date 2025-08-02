@@ -27,7 +27,10 @@ connectMongoDB()
 
 
   })
-app.use(cors())
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true 
+}))
 app.use(cookieParser())
 app.use(bodyParser.json({ limit: "10mb" })); // Change "10mb" to the desired size
 app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));

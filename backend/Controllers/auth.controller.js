@@ -6,6 +6,9 @@ import { generateTokenAndSetCookie } from "../Utils/generateTokens.js"
 export const getMe = async (req, res) => {
   try {
     const user = req.user;
+    if(!user){
+      return res.status(400).json({ message: 'You are not logged in' })
+    }
     return res.status(200).json(user);
   } catch (error) {
     console.log("Error in getme controller", error.message);
