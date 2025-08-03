@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { MdMenu, MdClose, MdShoppingCart, MdPerson } from "react-icons/md";
-// import { useGetLoggedUser } from "../../hooks/useGetLoggedUser";
+import { useGetLoggedUser } from "../../hooks/useGetLoggedUser";
 
 function Navbar() {
-  // const [isLoggedIn, setIsLoggedIn] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  // const { data } = useGetLoggedUser();
-  // console.log(data);
+  const { data } = useGetLoggedUser();
+
+  const isLoggedIn = !!data && !data.error;
 
   return (
     <nav className="bg-white shadow-lg border-b border-gray-100 sticky top-0 z-50">
@@ -27,7 +27,6 @@ function Navbar() {
               Sofiz Creation
             </span>
           </Link>
-
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             <Link
@@ -49,7 +48,6 @@ function Navbar() {
               About Us
             </Link>
           </div>
-
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center space-x-4">
             <Link
@@ -64,15 +62,22 @@ function Navbar() {
             >
               <MdPerson className="w-5 h-5" />
             </Link>
-            <Link
-              to="/login"
-              className="ml-2 px-4 py-2 bg-blue-600 text-white rounded-md text-sm font-medium hover:bg-blue-700 transition-colors duration-200"
-            >
-              Sign In
-            </Link>
+            {isLoggedIn ? (
+              <>
+                <button className="p-2 text-red-700 hover:text-blue-600 transition-colors duration-200">
+                  <MdPerson className="w-5 h-5" />
+                </button>
+              </>
+            ) : (
+              <Link
+                to="/login"
+                className="ml-2 px-4 py-2 bg-blue-600 text-white rounded-md text-sm font-medium hover:bg-blue-700 transition-colors duration-200"
+              >
+                Sign In
+              </Link>
+            )}
           </div>
 
-          {/* Mobile menu button */}
           <div className="md:hidden">
             <button
               onClick={toggleMenu}
@@ -121,18 +126,24 @@ function Navbar() {
                   >
                     <MdShoppingCart className="w-5 h-5" />
                   </Link>
-                  <Link
-                    to="/login"
-                    className="p-2 text-gray-700 hover:text-blue-600 transition-colors duration-200"
-                  >
-                    <MdPerson className="w-5 h-5" />
-                  </Link>
-                  <Link
-                    to="/login"
-                    className="ml-2 px-4 py-2 bg-blue-600 text-white rounded-md text-sm font-medium hover:bg-blue-700 transition-colors duration-200"
-                  >
-                    Sign In
-                  </Link>
+                  {isLoggedIn ? (
+                    <Link
+                      to="/profile"
+                      className="p-2 text-gray-700 hover:text-blue-600 transition-colors duration-200"
+                    >
+                      <MdPerson className="w-5 h-5" />
+                    </Link>
+                  ) : (
+                    <>
+                      <Link
+                        to="/login"
+                        className="ml-2 px-4 py-2 bg-blue-600 text-white rounded-md text-sm font-medium hover:bg-blue-700 transition-colors duration-200"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        Sign In
+                      </Link>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
